@@ -17,6 +17,7 @@ Users should be able to:
 ## What to expect
 
 ![screenshot](.src/assets/game-desktop.png)
+![screenshot2](.src/assets/preview.jpg)
 
 ### Built with
 
