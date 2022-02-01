@@ -16,7 +16,9 @@ Users should be able to:
 
 ## What to expect
 
+![game-desktop](https://user-images.githubusercontent.com/69443738/150931792-e0940d2e-db6c-4ece-b31c-80c6563949bf.png)
 
+![preview](https://user-images.githubusercontent.com/69443738/150931804-1ad5690f-57dd-4336-bec2-a1daf397f99f.jpg)
 
 ### Built with
 
