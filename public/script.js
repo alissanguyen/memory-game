@@ -86,6 +86,7 @@ function main() {
   let doublePlayer = false;
   let trioPlayer = false;
   let quadPlayer = false;
+  let fullTime = undefined;
 
   let tempArray = []; // to hold a max of 2 cards to be matched and reset to empty.
   let stepCount = 0; // count the number of moves during the game
@@ -169,7 +170,7 @@ function main() {
     clearInterval(interval);
     modal.classList.add("hide");
     // Warning stepsTaken == ! null
-    if (stepsTaken !== null) {
+    if (stepsTaken === !null) {
       stepsTaken.innerHTML = `00`;
     } else {
       return;
@@ -237,73 +238,55 @@ function main() {
 
   // Two players template
   const doublePlayerTemplate = `<div class="players flex2">
-         <h3 class="sr-only">2 players involved in this game</h3>
-        
-         <div data-id="1" class="player player1 active-player">
-             <h4 class="player-title">${
-               mediaQuery.matches ? "Player 1" : "P1"
-             }</h4>
-             <p class="score score1">0</p>
-         </div>
-         <div data-id="2" class="player player2">
-             <h4 class="player-title">${
-               mediaQuery.matches ? "Player 2" : "P2"
-             }</h4>
-             <p class="score score2">0</p>
-         </div>
-    </div>`;
+  <h3 class="sr-only">2 players involved in this game</h3>
+ 
+  <div data-id="1" class="player player1 active-player">
+      <h4 class="player-title">${mediaQuery.matches ? "Player 1" : "P1"}</h4>
+      <p class="score score1">0</p>
+  </div>
+  <div data-id="2" class="player player2">
+      <h4 class="player-title">${mediaQuery.matches ? "Player 2" : "P2"}</h4>
+      <p class="score score2">0</p>
+  </div>
+</div>`;
 
   // Three players template
   const triplePlayerTemplate = `<div class="players flex2">
-         <h3 class="sr-only">2 players involved in this game</h3>
-         <div data-id="1" class="player player1 active-player">
-             <h4 class="player-title">${
-               mediaQuery.matches ? "Player 1" : "P1"
-             }</h4>
-             <p class="score score1">0</p>
-         </div>
-         <div data-id="2" class="player player2">
-             <h4 class="player-title">${
-               mediaQuery.matches ? "Player 2" : "P2"
-             }</h4>
-             <p class="score score2">0</p>
-         </div>
-         <div data-id="3" class="player player3">
-             <h4 class="player-title">${
-               mediaQuery.matches ? "Player 3" : "P3"
-             }</h4>
-             <p class="score score3">0</p>
-         </div>
-    </div>`;
+  <h3 class="sr-only">2 players involved in this game</h3>
+  <div data-id="1" class="player player1 active-player">
+      <h4 class="player-title">${mediaQuery.matches ? "Player 1" : "P1"}</h4>
+      <p class="score score1">0</p>
+  </div>
+  <div data-id="2" class="player player2">
+      <h4 class="player-title">${mediaQuery.matches ? "Player 2" : "P2"}</h4>
+      <p class="score score2">0</p>
+  </div>
+  <div data-id="3" class="player player3">
+      <h4 class="player-title">${mediaQuery.matches ? "Player 3" : "P3"}</h4>
+      <p class="score score3">0</p>
+  </div>
+</div>`;
 
   // Four players template
   const quadPlayerTemplate = `<div class="players flex2">
-         <h3 class="sr-only">2 players involved in this game</h3>
-         <div data-id="1" class="player player1 active-player">
-             <h4 class="player-title">${
-               mediaQuery.matches ? "Player 1" : "P1"
-             }</h4>
-             <p class="score score1">0</p>
-         </div>
-         <div data-id="2" class="player player2">
-             <h4 class="player-title">${
-               mediaQuery.matches ? "Player 2" : "P2"
-             }</h4>
-             <p class="score score2">0</p>
-         </div>
-         <div data-id="3" class="player player3">
-             <h4 class="player-title">${
-               mediaQuery.matches ? "Player 3" : "P3"
-             }</h4>
-             <p class="score score3">0</p>
-         </div>
-         <div data-id="4" class="player player4">
-             <h4 class="player-title">${
-               mediaQuery.matches ? "Player 4" : "P4"
-             }</h4>
-             <p class="score score4">0</p>
-         </div>
-    </div>`;
+  <h3 class="sr-only">2 players involved in this game</h3>
+  <div data-id="1" class="player player1 active-player">
+      <h4 class="player-title">${mediaQuery.matches ? "Player 1" : "P1"}</h4>
+      <p class="score score1">0</p>
+  </div>
+  <div data-id="2" class="player player2">
+      <h4 class="player-title">${mediaQuery.matches ? "Player 2" : "P2"}</h4>
+      <p class="score score2">0</p>
+  </div>
+  <div data-id="3" class="player player3">
+      <h4 class="player-title">${mediaQuery.matches ? "Player 3" : "P3"}</h4>
+      <p class="score score3">0</p>
+  </div>
+  <div data-id="4" class="player player4">
+      <h4 class="player-title">${mediaQuery.matches ? "Player 4" : "P4"}</h4>
+      <p class="score score4">0</p>
+  </div>
+</div>`;
 
   // Select numbers or icons to play the game
   const selectTheme = () => {
@@ -328,7 +311,6 @@ function main() {
   // Select number of players
   const selectNumPlayers = () => {
     const players = document.getElementsByName("players");
-
     for (const player of players) {
       if (player.checked) {
         selectedPlayer = parseInt(player.value);
@@ -383,13 +365,13 @@ function main() {
     const timeStepsRecord = document.querySelector(".time-steps-record");
 
     // Warning inProgress == true
-    if (inProgress === true) {
+    if (inProgress == true) {
       return;
     } else {
       stepCount = 0;
     }
     // Warning gameEnd == true
-    if (gameEnd === true) {
+    if (gameEnd == true) {
       return;
     }
 
@@ -432,11 +414,12 @@ function main() {
   const playGame = () => {
     if (inProgress) {
       const cards = Array.from(document.querySelectorAll(".game-buttons"));
+      //  console.log(cards)
       cards.forEach((elem) => {
         elem.classList.remove("disable-cards");
         elem.addEventListener("click", function (event) {
           // prevent more than 2 cards to be opened
-          if (tempArray >= 2) {
+          if (tempArray.length >= 2) {
             return;
           }
           if (elem.classList.contains("open-cards")) {
@@ -504,7 +487,7 @@ function main() {
         stepsTimerChecker(stepCount);
       }
 
-      if (tempArray[0].innerHTML === tempArray[1].innerHTML) {
+      if (tempArray[0].innerHTML == tempArray[1].innerHTML) {
         tempArray[0].classList.add("match");
         tempArray[1].classList.add("match");
         tempArray = [];
@@ -522,9 +505,8 @@ function main() {
       }
     }
   }
-
   function startTimer() {
-    if (inProgress === false) {
+    if (inProgress == false) {
       interval = setInterval(myTimer, 1000);
     } else {
       return;
@@ -552,11 +534,11 @@ function main() {
     if (sec < 10) {
       minHand.innerHTML = `0${min}`;
       secHand.innerHTML = `0${sec}`;
-      // fullTime = `0${min}:0${sec}`;
+      fullTime = `0${min}:0${sec}`;
     } else {
       minHand.innerHTML = `0${min}`;
       secHand.innerHTML = `${sec}`;
-      // fullTime = `0${min}:${sec}`;
+      fullTime = `0${min}:${sec}`;
     }
 
     if (min >= 5) {

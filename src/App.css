@@ -685,12 +685,6 @@ input[type="button"]:focus {
   color: hsl(var(--clr-white));
 }
 
-/*
-input[type="button"].restart-button-tab:hover,
-input[type="button"].setup-new-game-button-tab:hover {
-  background-color: hsl(var(--clr-orange));
-}*/
-
 @keyframes zoomIn {
   from {
     opacity: 0;
