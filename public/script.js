@@ -218,10 +218,6 @@ function main() {
     button.classList.add("game-buttons");
     button.innerHTML = el;
     button.setAttribute("aria-label", el);
-    // let span = document.createElement("span");
-    // button.appendChild(span);
-    // container.setAttribute("tabindex", "-1");
-    // container.focus();
     container.appendChild(button);
   };
 
@@ -439,6 +435,10 @@ function main() {
       cards.forEach((elem) => {
         elem.classList.remove("disable-cards");
         elem.addEventListener("click", function (event) {
+          // prevent more than 2 cards to be opened
+          if (tempArray >= 2) {
+            return;
+          }
           if (elem.classList.contains("open-cards")) {
             return;
           } else {
@@ -512,8 +512,6 @@ function main() {
         endGame();
       } else {
         setTimeout(function () {
-        //   tempArray[0].classList.toggle("open-cards");
-        //   tempArray[1].classList.toggle("open-cards");
           tempArray[0].classList.remove("open-cards");
           tempArray[1].classList.remove("open-cards");
           tempArray = [];
